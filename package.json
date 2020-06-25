@@ -1,6 +1,6 @@
 {
   "name": "@gluecode-it/express-everywhere",
-  "version": "2.0.2",
+  "version": "1.0.0",
   "description": "makes possible to run express locally and in google cloud",
   "main": "dist/src/index.js",
   "scripts": {
