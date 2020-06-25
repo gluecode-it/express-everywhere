@@ -1,6 +1,6 @@
 import { Express } from 'express';
 
-export default class ServerlessWrapper {
+export default class ExpressEverywhere {
   static isRunningStandalone() {
     return !!process.env.STANDALONE;
   }
@@ -15,7 +15,7 @@ export default class ServerlessWrapper {
     return express();
   }
 
-  static init(): { app: Express, standalone: boolean } {
+  static init(): { app: Express; standalone: boolean } {
     let app: Express;
     const standalone = this.isRunningStandalone();
     if (!this.isRunningStandalone()) {
@@ -25,7 +25,7 @@ export default class ServerlessWrapper {
     }
     return {
       app,
-      standalone
+      standalone,
     };
   }
 }
