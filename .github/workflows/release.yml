@@ -14,6 +14,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: 'npmrc #200'
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
       - name: install
         run: npm install
       - name: compile
