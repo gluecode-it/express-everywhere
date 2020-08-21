@@ -14,6 +14,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: install
+        run: npm install
+      - name: compile
+        run: npx tsc
       - name: 'Release with semantic release #1000'
         run: npx semantic-release
         env:

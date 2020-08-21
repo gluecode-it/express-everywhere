@@ -4,8 +4,7 @@
   "description": "makes possible to run express locally and in google cloud",
   "main": "dist/src/index.js",
   "scripts": {
-    "watch": "tsc -w",
-    "postinstall": "tsc"
+    "watch": "tsc -w"
   },
   "author": "Oliver Lorenz <mail@oliverlorenz.com>",
   "license": "MIT",
