@@ -4,41 +4,52 @@
   "description": "makes possible to run express locally and in google cloud",
   "main": "dist/src/index.js",
   "scripts": {
-    "watch": "tsc -w"
+    "test": "jest --coverage",
+    "posttest": "npm run format",
+    "dev:test": "jest --coverage --coverage-reporters html --watch-all",
+    "prepare": "tsc",
+    "format": "prettier --loglevel warn --write \"**/*.{ts,tsx,css,md}\""
   },
   "author": "Oliver Lorenz <mail@oliverlorenz.com>",
   "license": "MIT",
-  "devDependencies": {
-    "@commitlint/config-conventional": "9.0.1",
-    "@semantic-release/commit-analyzer": "8.0.1",
-    "@semantic-release/release-notes-generator": "9.0.1",
-    "@types/express": "^4.17.6",
-    "@types/node": "^14.0.12",
-    "commitlint": "9.0.1",
-    "git-authors-cli": "1.0.27",
-    "husky": "4.2.5",
-    "lint-staged": "10.2.11",
-    "prettier": "2.0.5"
-  },
   "dependencies": {
     "express": "^4.17.1",
-    "serverless-express": "^2.0.11",
-    "typescript": "^3.9.5"
+    "serverless-express": "^2.0.11"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+  "devDependencies": {
+    "@babel/core": "7.12.3",
+    "@babel/preset-env": "7.12.1",
+    "@babel/preset-typescript": "7.12.1",
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-conventional": "11.0.0",
+    "@semantic-release/github": "7.1.1",
+    "@semantic-release/npm": "^7.0.6",
+    "@types/express": "^4.17.8",
+    "@types/jest": "26.0.15",
+    "@types/node": "14.14.2",
+    "@typescript-eslint/eslint-plugin": "4.5.0",
+    "@typescript-eslint/parser": "4.5.0",
+    "babel-jest": "26.6.0",
+    "husky": "4.3.0",
+    "jest": "26.6.0",
+    "lint-staged": "10.4.2",
+    "prettier": "2.1.2",
+    "semantic-release": "17.2.1",
+    "typescript": "^3.9.7"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "git-authors-cli && lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{ts,js,json,css,yaml}": [
-      "prettier --write",
-      "git add"
+    "*.{ts,js}": [
+      "prettier --write"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "contributors": [
     "Oliver Lorenz <mail@oliverlorenz.com>"
