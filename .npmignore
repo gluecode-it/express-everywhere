@@ -1,2 +1,5 @@
-**/*
-!/dist/**
+**.*
+!dist/*.js
+!dist/*.d.ts
+*.spec.js
+*.spec.d.ts

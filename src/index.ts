@@ -1,31 +1,18 @@
-import { Express } from 'express';
+import { IExpressEverywhereHandler } from './handler';
+import { ExpressEverywhereLocalHandler } from './handler/local';
 
-export default class ExpressEverywhere {
-  static isRunningStandalone() {
-    return !!process.env.STANDALONE;
-  }
+export class ExpressEverywhere {
+  constructor(
+    private handlerList: IExpressEverywhereHandler[] = [new ExpressEverywhereLocalHandler()],
+  ) {}
 
-  static getStandaloneVersion(): Express {
-    const express = require('express');
-    return express();
-  }
-
-  static getServerlessVersion(): Express {
-    const express = require('serverless-express/express');
-    return express();
-  }
-
-  static init(): { app: Express; standalone: boolean } {
-    let app: Express;
-    const standalone = this.isRunningStandalone();
-    if (!this.isRunningStandalone()) {
-      app = this.getServerlessVersion();
-    } else {
-      app = this.getStandaloneVersion();
+  getApp(type?: string) {
+    const handler = this.handlerList.find(handler => {
+      return handler.suits(type);
+    });
+    if (!handler) {
+      throw new Error('no handler found');
     }
-    return {
-      app,
-      standalone,
-    };
+    return handler;
   }
 }
