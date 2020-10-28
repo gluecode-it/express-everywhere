@@ -1,4 +1,4 @@
-import { IExpressEverywhereHandler } from '../handler';
+import { IExpressEverywhereHandler } from './interface';
 import { Express } from 'express';
 
 export class ExpressEverywhereLocalHandler implements IExpressEverywhereHandler {

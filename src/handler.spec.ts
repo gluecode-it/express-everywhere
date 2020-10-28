@@ -1,4 +1,4 @@
-import { ExpressEverywhere } from '.';
+import { ExpressEverywhere } from './handler';
 
 describe(ExpressEverywhere.name, () => {
   describe('getApp()', () => {
