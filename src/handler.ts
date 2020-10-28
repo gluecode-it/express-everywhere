@@ -1,6 +1,18 @@
-import { Express } from 'express';
+import { IExpressEverywhereHandler } from './handler';
+import { ExpressEverywhereLocalHandler } from './handler/local';
 
-export interface IExpressEverywhereHandler {
-  getApp(): Express;
-  suits(type?: string): boolean;
+export class ExpressEverywhere {
+  constructor(
+    private handlerList: IExpressEverywhereHandler[] = [new ExpressEverywhereLocalHandler()],
+  ) {}
+
+  getApp(type?: string) {
+    const handler = this.handlerList.find(handler => {
+      return handler.suits(type);
+    });
+    if (!handler) {
+      throw new Error('no handler found');
+    }
+    return handler;
+  }
 }
