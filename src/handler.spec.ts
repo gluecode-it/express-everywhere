@@ -1,14 +1,26 @@
 import { ExpressEverywhere } from './handler';
+import { Server } from 'http';
 
 describe(ExpressEverywhere.name, () => {
-  describe('getApp()', () => {
+  describe('handler getter', () => {
     it('returns local express if nothing given', () => {
       const handler = new ExpressEverywhere();
-      expect(handler.getApp()).toBeDefined();
+      expect(handler.handler).toBeDefined();
     });
     it('should throw', () => {
+      const handler = new ExpressEverywhere([]);
+      expect(() => handler.handler).toThrowError();
+    });
+  });
+  describe('listen()', () => {
+    it('should call callback', done => {
       const handler = new ExpressEverywhere();
-      expect(() => handler.getApp('not found')).toThrowError();
+      const callback = jest.fn().mockImplementation((server: Server) => {
+        server.close();
+        done();
+      });
+      handler.listen(callback);
+      expect(callback).toBeDefined();
     });
   });
 });
