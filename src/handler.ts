@@ -4,26 +4,25 @@ import { Express } from 'express';
 import { Server } from 'http';
 
 export class ExpressEverywhere {
+  private app: Express | undefined;
   constructor(
     private handlerList: IExpressEverywhereHandler[] = [new ExpressEverywhereLocalHandler()],
   ) {}
 
-  private getApp(type?: string): Express {
+  get handler(): Express {
+    if (this.app) return this.app;
     const handler = this.handlerList.find(handler => {
-      return handler.suits(type);
+      return handler.suits();
     });
     if (!handler) {
       throw new Error('no handler found');
     }
-    return handler.getApp();
-  }
-
-  get handler() {
-    return this.getApp();
+    this.app = handler.getApp();
+    return this.app;
   }
 
   listen(callback: (server: Server) => void, port = 8080) {
-    const server = this.getApp().listen(port, () => {
+    const server = this.handler.listen(port, () => {
       callback(server);
     });
   }

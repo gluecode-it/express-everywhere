@@ -7,6 +7,11 @@ describe(ExpressEverywhere.name, () => {
       const handler = new ExpressEverywhere();
       expect(handler.handler).toBeDefined();
     });
+    it('should return existing express handler', () => {
+      const handler = new ExpressEverywhere();
+      expect(handler.handler).toBeDefined();
+      expect(handler.handler).toBeDefined();
+    });
     it('should throw', () => {
       const handler = new ExpressEverywhere([]);
       expect(() => handler.handler).toThrowError();
